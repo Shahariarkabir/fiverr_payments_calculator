@@ -142,8 +142,8 @@
 
         <!-- Required Orders Calculator -->
         <div id="requiredOrdersCalc" class="calculator">
-            <p>Enter the Remaining Loan Amount:</p>
-            <input type="number" id="loanAmount" placeholder="Loan Amount" required>
+            <p>Enter the Amount Needed to Clear the Cash Advance:</p>
+            <input type="number" id="cashAdvanceInput" placeholder="Cash Advance Amount" required>
             <input type="submit" value="Calculate" onclick="calculateRequiredOrders()">
             <p id="resultRequiredOrders"></p>
         </div>
@@ -191,17 +191,18 @@
         }
 
         function calculateRequiredOrders() {
-            var loanAmount = parseFloat(document.getElementById('loanAmount').value);
-            if (isNaN(loanAmount) || loanAmount <= 0) {
+            var cashAdvance = parseFloat(document.getElementById('cashAdvanceInput').value);
+            if (isNaN(cashAdvance) || cashAdvance <= 0) {
                 document.getElementById('resultRequiredOrders').innerHTML = "Please enter a valid amount.";
                 document.getElementById('resultRequiredOrders').style.color = '#d32f2f';
                 return;
             }
 
-            var requiredOrders = loanAmount / (1 - 0.40) / 0.80;
+            // Calculate required order amount to clear the cash advance
+            var requiredOrders = cashAdvance / 0.32; // 32% of the order goes to the advance
 
             document.getElementById('resultRequiredOrders').innerHTML = 
-                "Required Order Amount to Clear Loan: $" + requiredOrders.toFixed(2);
+                "You need to complete an order of $" + requiredOrders.toFixed(2) + " to clear the cash advance of $" + cashAdvance.toFixed(2) + ".";
             document.getElementById('resultRequiredOrders').style.color = '#764ba2';
         }
     </script>
